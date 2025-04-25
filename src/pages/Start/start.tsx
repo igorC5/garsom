@@ -1,15 +1,27 @@
-import { Link } from "react-router-dom";
-import { Button } from "../components/ui/button"
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Button } from "../../components/ui/button"
 import { useState } from "react";
 import { ChevronLeft, ArrowBigLeft, ArrowLeft } from 'lucide-react';
 
 function Start() {
+  const navigate = useNavigate();
+
   const [estagio, setEstagio] = useState(0);
   const [oqueBuscaResposta, setOqueBuscaResposta] = useState<'servicos' | 'contratar' | ''>('');
+  const [possuiCadastro, setPossuiCadastro] = useState(false);
 
   const AvancarEstado = (busca: 'servicos' | 'contratar') => {
     setEstagio(prev => prev + 1);
     setOqueBuscaResposta(busca);
+  }
+
+  const Redirecionar = (possui: boolean) => {
+    if (possui) {
+      navigate('Login')    
+    } else {
+      navigate('Register')
+    }
+    
   }
 
   const OqueBusca = () => {
@@ -58,12 +70,16 @@ function Start() {
             <h1 className="text-white text-center self-center font-anton w-full text-base sm:text-lg md:text-xl lg:text-2xl xl:text-4xl">Como você gostaria de entrar?</h1>
           </div>
           <div className="flex relative top-[30%] w-[70%] px-[10%] gap-[10%] h-[10%] mx-auto justify-between">
-            <Link to='/das' className="h-15 w-[50%]">
-              <Button className=" cursor-pointer w-[100%] h-15 font-dmSans text-[18px] font-[1000]">Não sou cadastrado</Button>
-            </Link>
-            <Link to='/das' className="h-15 w-[50%]">
-              <Button className="cursor-pointer w-[100%] h-15 font-dmSans text-[18px] font-[1000]">Já possuo cadastro</Button>
-            </Link>
+            {/* <Link to='/das' className="h-15 w-[50%]"> */}
+              <Button 
+                onClick={() => Redirecionar(false)}
+                className=" cursor-pointer w-[100%] h-15 font-dmSans text-[18px] font-[1000]">Não sou cadastrado</Button>
+            {/* </Link> */}
+            {/* <Link to='/das' className="h-15 w-[50%]"> */}
+              <Button 
+                onClick={() =>  Redirecionar(true)}
+                className="cursor-pointer w-[100%] h-15 font-dmSans text-[18px] font-[1000]">Já possuo cadastro</Button>
+            {/* </Link> */}
           </div>
         </div>
       </div>
