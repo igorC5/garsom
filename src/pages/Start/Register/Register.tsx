@@ -41,6 +41,7 @@ const Register = () => {
                     <input className="bg-white border-2" type="text" />
                     <Button 
                         className="cursor-pointer"
+                        onClick={() => setTela('infos2')}
                     >
                         Próximo <ArrowRight size={80} /> 
                     </Button>
@@ -53,6 +54,7 @@ const Register = () => {
                 <>
                     <Button 
                         className="cursor-pointer"
+                        onClick={() => setTela('infos1')}
                     >
                         <ArrowLeft size={80} /> voltar
                     </Button>
@@ -66,6 +68,7 @@ const Register = () => {
                     <input className="bg-white border-2" type="text" />
                     <Button 
                         className="cursor-pointer"
+                        onClick={() => setTela('infos3')}
                     >
                         Próximo <ArrowRight size={80} /> 
                     </Button>
@@ -82,7 +85,7 @@ const Register = () => {
         }
         return (
             <>
-                <Tela2 />
+                <Tela1 />
             </>
         )
     }
