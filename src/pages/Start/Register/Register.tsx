@@ -1,16 +1,45 @@
 import { useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "../../../components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { z } from "zod";
 
 const Register = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const { oQueBusca } = location.state // servicos || contratar
+
+    const schema1 = z.object({
+        nome: z.string(),
+        telefone: z.string(),
+    })
+
+    const schema2 = z.object({
+        cnpj: z.string(),
+        ie: z.string(),
+        endereco: z.date(),
+    })
+
+    const schema3 = z.object({
+        email: z.string(),
+        senha: z.string(),
+        senha2: z.string(),
+    })
+
+    const optSchema = z.object({
+        code: z.string(),
+    })
 
     // REGISTRO PRA TRABALHADOR
     const RegisterWorker = () => {
         return (
             <>
+                <Button 
+                className="cursor-pointer"
+                onClick={() => navigate('/')}
+                >
+                    <ArrowLeft size={80} /> voltar
+                </Button>
                 <h2>EMPREGADO</h2>
             </>
         )
@@ -30,15 +59,13 @@ const Register = () => {
                 <>  
                     <Button 
                         className="cursor-pointer"
+                        onClick={() => navigate('/')}
                     >
                         <ArrowLeft size={80} /> voltar
                     </Button>
                     <h2>VAMOS COMEÇAR!</h2>
                     <h2>Precisamos de algumas informações:</h2>
-                    <label>Número da sua empresa*</label>
-                    <input className="bg-white border-2" type="text" />
-                    <label>Nome fantasia*</label>
-                    <input className="bg-white border-2" type="text" />
+                    
                     <Button 
                         className="cursor-pointer"
                         onClick={() => setTela('infos2')}
@@ -60,12 +87,7 @@ const Register = () => {
                     </Button>
                     <h2>VAMOS COMEÇAR!</h2>
                     <h2>Precisamos de algumas informações:</h2>
-                    <label>CNPJ*</label>
-                    <input className="bg-white border-2" type="text" />
-                    <label>IE</label>
-                    <input className="bg-white border-2" type="text" />
-                    <label>Email da empresa*</label>
-                    <input className="bg-white border-2" type="text" />
+                
                     <Button 
                         className="cursor-pointer"
                         onClick={() => setTela('infos3')}
@@ -76,16 +98,29 @@ const Register = () => {
             )
         }
 
-        const tela3 = () => {
+        const Tela3 = () => {
             return (
                 <>
-                
+                    <Button 
+                        className="cursor-pointer"
+                        onClick={() => setTela('infos2')}
+                    >
+                        <ArrowLeft size={80} /> voltar
+                    </Button>
+                    <Button 
+                        className="cursor-pointer"
+                        onClick={() => setTela('infos3')}
+                    >
+                        Próximo <ArrowRight size={80} /> 
+                    </Button>
                 </>
             )
         }
         return (
             <>
-                <Tela1 />
+                {tela === 'infos1' && <Tela1 />}
+                {tela === 'infos2' && <Tela2 />}
+                {tela === 'infos3' && <Tela3 />}
             </>
         )
     }
